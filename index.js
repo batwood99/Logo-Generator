@@ -1,6 +1,11 @@
 const inquirer = require('inquirer');
-const fs = require('fs/promises');
-const { generateCircle, generateTriangle, generateSquare } = require('./shapes.js');
+const fs = require('fs');
+const util = require('util');
+const shapes = require('./lib/shapes');
+
+const generateCircle = shapes.generateCircle;
+const generateTriangle = shapes.generateTriangle;
+const generateSquare = shapes.generateSquare;
 
 // Prompt the user for input
 inquirer.prompt([
@@ -33,7 +38,7 @@ inquirer.prompt([
     message: 'Enter the shape color (keyword or hex value):'
   }
 ])
-.then((answers) => {
+.then(function(answers) {
     // Generate the SVG string based on user input
     let svg;
     switch (answers.shape) {
@@ -48,12 +53,17 @@ inquirer.prompt([
         break;
     }
     svg += `<text x="50%" y="50%" fill="${answers.textColor}" text-anchor="middle" font-size="48">${answers.text}</text>`;
-  
+
     // Write the SVG string to a file
-    fs.writeFile('logo.svg', svg)
-      .then(() => console.log('Generated logo.svg'))
-      .catch((err) => console.error(err));
+    const writeFile = util.promisify(fs.writeFile);
+    writeFile('logo.svg', svg)
+      .then(function() {
+        console.log('Generated logo.svg')
+      })
+      .catch(function(err) {
+        console.error(err)
+      });
   })
-  .catch((err) => {
+  .catch(function(err) {
     console.error(err);
   });
