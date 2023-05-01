@@ -1,5 +1,3 @@
-const CLI = require('./lib/cli.js');
-
-const cli = new CLI();
-
-cli.run();
+const inquirer = require('inquirer');
+const svgCaptcha = require('svg-captcha');
+const fs = require('fs');
