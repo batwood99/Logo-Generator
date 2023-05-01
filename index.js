@@ -56,7 +56,7 @@ inquirer.prompt([
 
     // Write the SVG string to a file
     const writeFile = util.promisify(fs.writeFile);
-    writeFile('logo.svg', svg)
+    writeFile('Generated logo.svg', svg)
       .then(function() {
         console.log('Generated logo.svg')
       })
