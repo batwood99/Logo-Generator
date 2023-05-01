@@ -43,16 +43,16 @@ inquirer.prompt([
     let svg;
     switch (answers.shape) {
       case 'circle':
-        svg = generateCircle(answers.shapeColor, 100);
+        svg = `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="200" height="200">${generateCircle(answers.shapeColor, 100)}`;
         break;
       case 'triangle':
-        svg = generateTriangle(answers.shapeColor, 200);
+        svg = `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="200" height="200">${generateTriangle(answers.shapeColor, 200)}`;
         break;
       case 'square':
-        svg = generateSquare(answers.shapeColor, 200);
+        svg = `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="200" height="200">${generateSquare(answers.shapeColor, 200)}`;
         break;
     }
-    svg += `<text x="50%" y="50%" fill="${answers.textColor}" text-anchor="middle" font-size="48">${answers.text}</text>`;
+    svg += `<text x="50%" y="50%" fill="${answers.textColor}" text-anchor="middle" font-size="48">${answers.text}</text></svg>`;
 
     // Write the SVG string to a file
     const writeFile = util.promisify(fs.writeFile);
